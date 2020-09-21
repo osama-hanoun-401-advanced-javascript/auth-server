@@ -1,7 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 const schema = require('./users-schema');
 
 const MongoModel = require('../mongo-model');
@@ -18,14 +18,15 @@ class User extends MongoModel {
         }
         let token = jwt.sign({ data: record.username }, 'secret', { expiresIn: '1h' });
         return {
-          "token": token, "user": {
-            "acl": [],
-            "username": record.username
-          }
-        }
+          'token': token, 'user': {
+            'acl': [],
+            'username': record.username,
+          },
+        };
       }).catch(err => {
-        err = err? err :'Invalid Login';
-        return Promise.reject( {error: err })
+        err = typeof err === 'object'?'Invalid Login':err;
+        console.log('err>>>>>>',typeof err);
+        return Promise.reject( {error: err });
       });
   }
 }

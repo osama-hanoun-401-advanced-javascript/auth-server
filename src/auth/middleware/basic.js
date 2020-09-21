@@ -1,7 +1,6 @@
 'use strict';
 
 const base64 = require('base-64');
-const bcrypt = require('bcrypt');
 const user = require('../models/users/users-collection');
 
 function decoding(req) {
@@ -9,7 +8,7 @@ function decoding(req) {
   if (auth[0] == 'Basic') {
     // 1st decode auth[1] -> then split it on :
     let [username, password] = base64.decode(auth[1]).split(':');
-    return { username, password }
+    return { username, password };
   } else {
     throw new Error('Invalid Login!! ');
   }

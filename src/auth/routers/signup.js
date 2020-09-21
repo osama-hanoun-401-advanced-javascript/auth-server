@@ -9,12 +9,19 @@ router.post('/signup', handleSignup);
 
 async function handleSignup(req, res) {
 
-  req.body.password= await bcrypt.hash(req.body.password,5);
+  checkInput(req)?null:res.status(500).send('Invalid Input');
+  req.body.password = await bcrypt.hash(req.body.password, 5);
   user.create(req.body).then(result => {
     res.json(result);
-  }).catch(next=>{
-    res.send('You already have an account')
+  }).catch(err => {
+    res.status(500).send('You already have an account');
   });
 }
-
+function checkInput(req) {
+  if (!(req.body.password && req.body.username && req.body.fullname && req.body.email)) {
+    return false;
+  } else{
+    return true;
+  }
+}
 module.exports = router;

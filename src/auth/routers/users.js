@@ -8,8 +8,8 @@ router.use(express.json());
 router.get('/users',basicAuth,handleGetAllUsers);
 
 async function handleGetAllUsers(req,res){
-    let allUsers= await user.get(); 
-    res.json(allUsers);
+  let allUsers= await user.get(); 
+  res.json(allUsers);
 }
 
 module.exports = router;
