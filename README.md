@@ -34,4 +34,4 @@ API_SERVER=http://localhost:3000/oauth
 
 #### UML
 
-![UML-Class-12b](./assets/uml-class-12b.PNG)
+![UML-Class-13](./assets/uml-class-13.PNG)
