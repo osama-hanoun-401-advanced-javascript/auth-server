@@ -6,7 +6,6 @@ const signinRouter = require('./auth/routers/signin');
 const signupRouter = require('./auth/routers/signup');
 const usersRouter = require('./auth/routers/users');
 const oauth = require('./auth/middleware/oauth');
-const bearerAuth = require('./extra-routes');
 
 
 const app = express();
@@ -16,10 +15,9 @@ app.use(express.json());
 app.use(signinRouter);
 app.use(signupRouter);
 app.use(usersRouter);
-app.use(bearerAuth);
-
 // Routes
 app.get('/oauth', oauth, (req, res) => {
+  console.log("GOOOOOOOOOOOD",req.user)
   res.json(req.user);
 });
 

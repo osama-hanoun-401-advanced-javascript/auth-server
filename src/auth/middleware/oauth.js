@@ -5,7 +5,7 @@ const users = require('../models/users/users-collection');
 require('dotenv').config();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const SECRET = 'mytokensecret';
+
 
 /*
   Resources
@@ -71,7 +71,7 @@ async function checkUser(username) {
   } catch (e) {
     let password = await bcrypt.hash(username, 5);
     let user = await users.create({ username, fullname: username, password, email: username + '@github.com' });
-    let token = jwt.sign({ data: user.username },SECRET);
+    let token = jwt.sign({ data: user.username }, 'secret', { expiresIn: '1h' });
     return {
       'token': token, 'user': {
         'acl': [],
