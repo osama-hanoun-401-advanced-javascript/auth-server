@@ -18,8 +18,8 @@ class Model {
     }
   }
 
-  update(_id, record) {
-    return this.schema.findByIdAndUpdate(_id, record);
+  update(username, record) {
+    return this.schema.findOneAndUpdate(username,record);
   }
 
   delete(_id) {

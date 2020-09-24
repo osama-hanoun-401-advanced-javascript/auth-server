@@ -31,10 +31,10 @@ class User extends MongoModel {
   }
   async authenticateToken(token) {
     try {
-      let tokenObject =  jwt.verify(token, SECRET);
-      let user = await this.get({username : tokenObject.data});
-      console.log('user?>>>>>>>>',user);
-      if (user ) {
+      let tokenObject = jwt.verify(token, SECRET);
+      let user = await this.get({ username: tokenObject.data });
+      console.log('user?>>>>>>>>', user);
+      if (user) {
         return Promise.resolve({
           tokenObject: tokenObject,
           user,
@@ -45,7 +45,27 @@ class User extends MongoModel {
     } catch (e) {
       return Promise.reject();
     }
-
+  }
+  async set(username, roles) {
+    try {
+      await this.update({ username }, { roles });
+      return Promise.resolve();
+    } catch (e) {
+      return Promise.reject();
+    }
+  }
+  async can(username, role) {
+    try {
+      let user = this.get({ username });
+      if (user.roles.includes(role)) {
+        return Promise.resolve(true);
+      }
+      else {
+        return Promise.reject('Not Authorized');
+      }
+    } catch (e) {
+      return Promise.reject();
+    }
   }
 }
 
